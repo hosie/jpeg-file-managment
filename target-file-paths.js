@@ -19,13 +19,11 @@ async function readExif(file){
     });
   })
 }
-async function dryRun(filepath){
+async function targetFilePaths(filepath){
 
-  console.log(filepath)
   let results = await recursive(filepath)
   results = results.map(readExif)
   return Promise.allSettled(results)
 
-
 }
-module.exports.dryRun = dryRun
+module.exports.targetFilePaths = targetFilePaths
