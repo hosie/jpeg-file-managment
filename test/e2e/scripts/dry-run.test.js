@@ -1,2 +1,2 @@
 const dryRun = require('../../../index.js').dryRun
-dryRun(`${__dirname}/../input/baby.JPG`)
+dryRun(`${__dirname}/../input`)
