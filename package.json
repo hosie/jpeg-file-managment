@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:dry-run":"node ./test/e2e/scripts/dry-run.test.js",
-    "test:analyse-directory":"node ./test/e2e/scripts/analyse-directory.test.js"
+    "test:dry-run": "node ./test/e2e/scripts/dry-run.test.js",
+    "test:analyse-directory": "node ./test/e2e/scripts/analyse-directory.test.js",
+    "test:validate-directory": "node ./test/e2e/scripts/validate-directory.test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "exif": "^0.6.0",
+    "exif-date": "^2.1.0",
     "moment": "^2.24.0",
     "recursive-readdir": "^2.2.2"
   }
