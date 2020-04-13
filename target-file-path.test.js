@@ -83,5 +83,29 @@ describe("target-file-path", () => {
       expect(result).to.equal("06-09-05.JPG")
     })
 
+    it("uses subsecond if available", () => {
+      const testExifData = {
+        exif: {
+          DateTimeOriginal: "2010:12:25 16:59:25",
+          SubSecTimeOriginal: "30"
+        }
+      }
+      const result = targetFileName(testExifData)
+
+      expect(result).to.equal("16-59-25-30.JPG")
+    })
+
+    it("deals with leading zero on subsecond if available", () => {
+      const testExifData = {
+        exif: {
+          DateTimeOriginal: "2010:12:25 16:59:25",
+          SubSecTimeOriginal: "03"
+        }
+      }
+      const result = targetFileName(testExifData)
+
+      expect(result).to.equal("16-59-25-03.JPG")
+    })
+
   })
 })
