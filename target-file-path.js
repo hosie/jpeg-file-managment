@@ -15,8 +15,13 @@ module.exports.targetFilePath = function(exifData){
   }else{
     month=''+month
   }
-  let date = ''+dateObj.date()
 
+  let date = ''+dateObj.date()
+  if(date<10){
+    date='0'+date
+  }else{
+    date=''+date
+  }
   return path.join(year,month,date)
 
 }
@@ -42,6 +47,7 @@ module.exports.targetFileName = function(exifData){
   }else{
     seconds=''+seconds
   }
+
   return `${hour}-${minutes}-${seconds}.JPG`
 
 }
