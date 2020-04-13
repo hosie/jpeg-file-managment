@@ -4,12 +4,12 @@ Generate a batch script that will rename all jpegs based on the creation
 */
 
 const analyseDirectory = require('./analyse-directory.js').analyseDirectory
-
-async function generateRenameCommands(dirpath){
+const path = require('path')
+async function generateRenameCommands(dirpath,targetDirPath){
   function addToScript(script,file,index){
       script = script + `
 
-      moveFile ${file.value.source} ${file.value.target} ${index+1}
+      moveFile ${file.value.source} ${path.normalize(targetDirPath + "/" +file.value.target)} ${index+1}
       `
       return script
   }
@@ -44,7 +44,7 @@ function moveFile() {
   let results = await analyseDirectory(dirpath)
   let finalScript = results
   .filter(result =>{
-    return result.status !== 'fulfilled' || result.value.source !== result.value.target
+    return result.status === 'fulfilled' && result.value.source !== result.value.target
   })
   .reduce(addToScript,initialScript)
   return finalScript
