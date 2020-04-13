@@ -20,7 +20,7 @@ if [ -z "$RESTART_CHECKPOINT" ]
 then
   export RESTART_CHECKPOINT=0
 fi
-
+echo starting from $RESTART_CHECKPOINT
 
 function moveFile() {
   sourceFile=$1
@@ -44,7 +44,7 @@ function moveFile() {
   let results = await analyseDirectory(dirpath)
   let finalScript = results
   .filter(result =>{
-    return result.status === 'fulfilled' && result.value.source !== result.value.target
+    return result.status === 'fulfilled'
   })
   .reduce(addToScript,initialScript)
   return finalScript
