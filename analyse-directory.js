@@ -30,7 +30,11 @@ async function analyseDirectory(dirpath){
           {
             let filePath = targetFilePath(exifData)
             let fileName = targetFileName(exifData)
-            resolve({source:file,target:path.join(dirpath,filePath,fileName)})
+            if(filePath===null || fileName===null){
+              reject({source:`File: ${file}`,code:`NO_DATE_TIME`})
+            }else{
+              resolve({source:file,target:path.join(dirpath,filePath,fileName)})
+            }
           }
       });
     })

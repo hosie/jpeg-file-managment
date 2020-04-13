@@ -6,6 +6,9 @@ const path = require('path')
 
 module.exports.targetFilePath = function(exifData) {
   let dateTimeOriginal = exifData.exif.DateTimeOriginal
+  if(typeof dateTimeOriginal === 'undefined'){
+    return null
+  }
   let dateObj = moment(dateTimeOriginal, "YYYY:MM:DD HH:mm:SS")
   //let dateObj = parse(dateTimeOriginal)
   let year = '' + dateObj.year()
@@ -28,6 +31,9 @@ module.exports.targetFilePath = function(exifData) {
 
 module.exports.targetFileName = function(exifData) {
   let dateTimeOriginal = exifData.exif.DateTimeOriginal
+  if(typeof dateTimeOriginal === 'undefined'){
+    return null
+  }
   let dateObj = moment(dateTimeOriginal, "YYYY:MM:DD HH:mm:ss")
   let subSecond = exifData.exif.SubSecTimeOriginal
   let hour = dateObj.hour()
