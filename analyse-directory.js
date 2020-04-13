@@ -2,12 +2,22 @@ const ExifImage = require('exif').ExifImage;
 const targetFilePath = require('./target-file-path.js').targetFilePath
 const targetFileName = require('./target-file-path.js').targetFileName
 const realRecursive = require("recursive-readdir");
+const fs = require('fs')
 const util = require('util')
 const path = require('path')
 const recursive =util.promisify(realRecursive)
 
 
 async function analyseDirectory(dirpath){
+  if(! fs.existsSync(dirpath)){
+    return Promise.reject(`${dirpath} does not exist`)
+
+  }
+  const stats = fs.statSync(dirpath)
+
+  if(! stats.isDirectory() ){
+    return Promise.reject(`${dirpath} is not a directory`)
+  }
 
   async function readExif(file){
     return new Promise((resolve,reject)=>{
