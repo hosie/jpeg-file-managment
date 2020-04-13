@@ -36,6 +36,17 @@ describe("target-file-path", () => {
       expect(result).to.equal("2010/12/05")
     })
 
+
+    it("returns null if DateTimeOriginal is missing", () => {
+      const testExifData = {
+        exif: {
+        }
+      }
+      const result = targetFilePath(testExifData)
+
+      expect(result).to.equal(null)
+    })
+
   })
 
   describe("targetFileName", () => {
@@ -105,6 +116,16 @@ describe("target-file-path", () => {
       const result = targetFileName(testExifData)
 
       expect(result).to.equal("16-59-25-03.JPG")
+    })
+
+    it("returns null if DateTimeOriginal is missing", () => {
+      const testExifData = {
+        exif: {
+        }
+      }
+      const result = targetFileName(testExifData)
+
+      expect(result).to.equal(null)
     })
 
   })
