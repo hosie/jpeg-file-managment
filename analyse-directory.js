@@ -33,7 +33,7 @@ async function analyseDirectory(dirpath){
             if(filePath===null || fileName===null){
               reject({source:`File: ${file}`,code:`NO_DATE_TIME`})
             }else{
-              resolve({source:file,target:path.join(dirpath,filePath,fileName)})
+              resolve({source:file,target:path.join(filePath,fileName)})
             }
           }
       });
