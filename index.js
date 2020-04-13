@@ -1,5 +1,6 @@
 module.exports = {
   dryRun:require('./dry-run.js').dryRun,
   validateDirectory:require('./validate-directory.js').validateDirectory,
-  analyseDirectory:require('./analyse-directory.js').analyseDirectory
+  analyseDirectory:require('./analyse-directory.js').analyseDirectory,
+  generateRenameCommands:require('./generate-rename-commands.js').generateRenameCommands
 }
