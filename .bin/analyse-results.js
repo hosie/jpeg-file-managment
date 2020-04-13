@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
-const results = JSON.parse(fs.readFileSync('results.json', {
+const resultsFile = process.argv[2] || 'results.json'
+const results = JSON.parse(fs.readFileSync(resultsFile, {
   encoding: 'utf8'
 }))
 const isNonJPegs = result => (result.status === "rejected" && result.reason.code === "NOT_A_JPEG")
