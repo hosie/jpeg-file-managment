@@ -14,6 +14,28 @@ describe("target-file-path", () => {
       expect(result).to.equal("2010/12/25")
     })
 
+    it("deals with leading zeros on month",()=>{
+      const testExifData = {
+        exif: {
+          DateTimeOriginal: "2010:02:25 16:59:25"
+        }
+      }
+      const result = targetFilePath(testExifData)
+
+      expect(result).to.equal("2010/02/25")
+    })
+
+    it("deals with leading zeros on date",()=>{
+      const testExifData = {
+        exif: {
+          DateTimeOriginal: "2010:12:05 16:59:25"
+        }
+      }
+      const result = targetFilePath(testExifData)
+
+      expect(result).to.equal("2010/12/05")
+    })
+
   })
 
   describe("targetFileName", () => {
@@ -23,9 +45,42 @@ describe("target-file-path", () => {
           DateTimeOriginal: "2010:12:25 16:59:25"
         }
       }
-      const result = targetFilePath(testExifData)
+      const result = targetFileName(testExifData)
 
-      expect(result).to.equal("16_59_25")
+      expect(result).to.equal("16-59-25.JPG")
+    })
+
+    it("deals with leading zeros on hour", () => {
+      const testExifData = {
+        exif: {
+          DateTimeOriginal: "2010:12:25 06:59:25"
+        }
+      }
+      const result = targetFileName(testExifData)
+
+      expect(result).to.equal("06-59-25.JPG")
+    })
+
+    it("deals with leading zeros on minute", () => {
+      const testExifData = {
+        exif: {
+          DateTimeOriginal: "2010:12:25 06:09:25"
+        }
+      }
+      const result = targetFileName(testExifData)
+
+      expect(result).to.equal("06-09-25.JPG")
+    })
+
+    it("deals with leading zeros on second", () => {
+      const testExifData = {
+        exif: {
+          DateTimeOriginal: "2010:12:25 06:09:05"
+        }
+      }
+      const result = targetFileName(testExifData)
+
+      expect(result).to.equal("06-09-05.JPG")
     })
 
   })
