@@ -52,7 +52,7 @@ async function analyseDirectory(dirpath, limit) {
   }
 
   async function readExif(file) {
-    log.info(`#readExif file`);
+    log.info(`#readExif ${file}`);
     return new Promise((resolve, reject) => {
       new ExifImage({
         image: file
