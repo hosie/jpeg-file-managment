@@ -9,9 +9,9 @@ echo "${RESULTS_ANALYSIS}"
 NUMBER_OF_RESULTS=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+  results")
 if [[ ${NUMBER_OF_RESULTS} = "There are 8  results" ]]
 then
-  echo "Passed"
+  echo "PASSED"
 else
-  echo "Failed"
+  echo "FAILED"
   return
 fi
 
@@ -23,9 +23,9 @@ echo "${RESULTS_ANALYSIS}"
 NUMBER_OF_RESULTS=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+  results")
 if [[ ${NUMBER_OF_RESULTS} = "There are 5  results" ]]
 then
-  echo "Passed"
+  echo "PASSED"
 else
-  echo "Failed"
+  echo "FAILED"
   return
 fi
 
@@ -108,9 +108,20 @@ then
   npm run find-duplicates-in-file ./results.json ${DIR}/../test/e2e/input/organised
   RESULTS_ANALYSIS=$(npm run analyse-results)
   echo "${RESULTS_ANALYSIS}"
-  NUMBER_OF_RESULTS=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+ duplicates")
-  if [[ ${NUMBER_OF_RESULTS} = "There are 8 duplicates" ]]
+  NUMBER_OF_DUPES=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+ duplicates")
+  if [[ ${NUMBER_OF_DUPES} = "There are 8 duplicates" ]]
   then
+    npm run generate-rename-commands-from-file-for-broken-files ./results.json ${DIR}/../test/output
+    NUMBER_OF_DUPES=$(grep "test/output/DUPLICATE" rename.sh | wc -l)
+    if (( $NUMBER_OF_DUPES == 8 ))
+    then
+      echo "PASSED"
+    else
+      echo "FAILED"
+      return
+    fi
+
+
     echo "PASSED"
   else
     echo "Failed"
