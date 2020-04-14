@@ -72,3 +72,26 @@ else
   echo "Failed"
   return
 fi
+
+
+
+## Analyse the directories
+npm run analyse-directory ${DIR}/../test/e2e/input/unorganised
+RESULTS_ANALYSIS=$(npm run analyse-results)
+echo "${RESULTS_ANALYSIS}"
+NUMBER_OF_RESULTS=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+  results")
+if [[ ${NUMBER_OF_RESULTS} = "There are 8  results" ]]
+then
+  npm run generate-rename-commands-from-file-for-broken-files ./results.json ${DIR}/../test/e2e/output/target
+  NUM_MOVES=$(grep "moveFile /" rename.sh | wc -l)
+  if (( $NUM_MOVES == 6 ))
+  then
+    echo "PASSED"
+  else
+    echo "FAILED"
+    return
+  fi
+else
+  echo "Failed"
+  return
+fi

@@ -7,6 +7,7 @@
     "analyse-directory": "node ./.bin/analyse-directory",
     "analyse-results": "node ./.bin/analyse-results",
     "generate-rename-commands": "node ./.bin/generate-rename-commands",
+    "generate-rename-commands-from-file-for-broken-files": "node ./.bin/generate-rename-commands-from-file-for-broken-files",
     "generate-rename-commands-from-file": "node ./.bin/generate-rename-commands-from-file",
     "test": "mocha ./*.test.js",
     "test:cli": "./.bin/test-cli.sh",
