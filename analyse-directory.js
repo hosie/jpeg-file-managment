@@ -16,7 +16,8 @@ var log = bunyan.createLogger({
 });
 
 
-async function analyseDirectory(dirpath) {
+async function analyseDirectory(dirpath, limit) {
+
   if (!fs.existsSync(dirpath)) {
     return Promise.reject(`${dirpath} does not exist`)
 
@@ -25,6 +26,29 @@ async function analyseDirectory(dirpath) {
 
   if (!stats.isDirectory()) {
     return Promise.reject(`${dirpath} is not a directory`)
+  }
+
+  let count=0
+  function enforceLimit(file,stats){
+    log.debug(`#enforceLimit ${file}`)
+    if(stats.isDirectory()){
+      return false
+    }
+    count++
+    if( typeof limit === 'undefined'){
+      log.debug('#enforceLimit unlimited')
+      return false
+    }else{
+      if(count>limit){
+        log.debug('#enforceLimit limit exceed')
+        return true
+
+      }else{
+        log.debug(`#enforceLimit within limit ${count}`)
+        return false
+
+      }
+    }
   }
 
   async function readExif(file) {
@@ -54,7 +78,7 @@ async function analyseDirectory(dirpath) {
     })
   }
 
-  let results = await recursive(dirpath)
+  let results = await recursive(dirpath,[enforceLimit])
   results = results.map(readExif)
 
   return Promise.allSettled(results)
