@@ -95,3 +95,28 @@ else
   echo "Failed"
   return
 fi
+
+
+
+## Analyse the directories
+npm run analyse-directory ${DIR}/../test/e2e/input/duplicates
+RESULTS_ANALYSIS=$(npm run analyse-results)
+echo "${RESULTS_ANALYSIS}"
+NUMBER_OF_RESULTS=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+  results")
+if [[ ${NUMBER_OF_RESULTS} = "There are 8  results" ]]
+then
+  npm run find-duplicates-in-file ./results.json ${DIR}/../test/e2e/input/organised
+  RESULTS_ANALYSIS=$(npm run analyse-results)
+  echo "${RESULTS_ANALYSIS}"
+  NUMBER_OF_RESULTS=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+ duplicates")
+  if [[ ${NUMBER_OF_RESULTS} = "There are 8 duplicates" ]]
+  then
+    echo "PASSED"
+  else
+    echo "Failed"
+    return
+  fi
+else
+  echo "Failed"
+  return
+fi

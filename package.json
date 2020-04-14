@@ -9,6 +9,7 @@
     "generate-rename-commands": "node ./.bin/generate-rename-commands",
     "generate-rename-commands-from-file-for-broken-files": "node ./.bin/generate-rename-commands-from-file-for-broken-files",
     "generate-rename-commands-from-file": "node ./.bin/generate-rename-commands-from-file",
+    "find-duplicates-in-file": "node ./.bin/find-duplicates-in-file",
     "test": "mocha ./*.test.js",
     "test:cli": "./.bin/test-cli.sh",
     "test:dry-run": "node ./test/e2e/scripts/dry-run.test.js",

@@ -15,7 +15,12 @@ const noExifSegments = results.filter(isNoExifSegments)
 const isNoDateTime = result => (result.status === "rejected" && result.reason.code === "NO_DATE_TIME")
 const noDateTime = results.filter(isNoDateTime)
 
-const others = results.filter(result => (!isNoExifSegments(result) && !isNonJPegs(result) && !isNoDateTime(result)))
+
+const isDuplicate = result => (result.status === "rejected" && result.reason.code === "DUPLICATE")
+const duplicates = results.filter(isDuplicate)
+
+
+const others = results.filter(result => (!isNoExifSegments(result) && !isNonJPegs(result) && !isNoDateTime(result) && !isDuplicate(result)))
 
 //console.log(JSON.stringify(nonJPegs,null,2))
 let initialNonJPegDetails = {
@@ -180,6 +185,7 @@ console.log(`unique resonse for rejection ${JSON.stringify(reasons)}`)
 console.log(`There are ${numberUnknownStatus}  Unknown status`)
 
 console.log(`There are ${nonJPegs.length} non JPegs`)
+console.log(`There are ${duplicates.length} duplicates`)
 
 console.log(`There are ${noExifSegments.length}  No exif segments`)
 console.log(`There are ${noDateTime.length}  with no date time information`)
