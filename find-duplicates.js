@@ -6,6 +6,9 @@ return a copy of the array that is modified with any duplicates marked as such
 function findDuplicates(candidates, checkExists) {
   let uniqueTargets = []
   let result = candidates.map(file => {
+    if(file.status==='rejected'){
+      return file
+    }
     if ((checkExists(file.value.target)) || (uniqueTargets.includes(file.value.target))) {
       return {
         status: 'rejected',
