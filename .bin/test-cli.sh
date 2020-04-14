@@ -50,3 +50,25 @@ else
   echo "FAILED"
   return
 fi
+
+
+## Generate rename commands from file
+npm run analyse-directory ${DIR}/../test/e2e/input/organised
+RESULTS_ANALYSIS=$(npm run analyse-results)
+echo "${RESULTS_ANALYSIS}"
+NUMBER_OF_RESULTS=$(echo "${RESULTS_ANALYSIS}" | grep -E "There are .+  results")
+if [[ ${NUMBER_OF_RESULTS} = "There are 8  results" ]]
+then
+  npm run generate-rename-commands-from-file ./results.json ${DIR}/../test/e2e/output/target
+  NUM_MOVES=$(grep "moveFile /" rename.sh | wc -l)
+  if (( $NUM_MOVES == 8 ))
+  then
+    echo "PASSED"
+  else
+    echo "FAILED"
+    return
+  fi
+else
+  echo "Failed"
+  return
+fi
